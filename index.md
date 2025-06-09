@@ -1,7 +1,15 @@
 ---
 layout: home
+title: 首页
 ---
 
-# 欢迎来到我的博客
-
-这是我的第一篇文章，内容使用 Markdown 撰写，GitHub Pages 会自动生成首页。
+<div class="home-archive">
+  {% for post in site.posts %}
+  <article>
+    <a href="{{ post.url | relative_url }}">
+      <h2>{{ post.title }}</h2>
+      <p>{{ post.excerpt | strip_html | truncate: 100 }}</p>
+    </a>
+  </article>
+  {% endfor %}
+</div>
