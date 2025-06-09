@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的第一篇技术博客 - 我的个人博客</title>
+    <link rel="stylesheet" href="../style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <h2>我的博客</h2>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="../index.html" class="nav-link">首页</a></li>
+                <li><a href="../blog.html" class="nav-link">博客</a></li>
+                <li><a href="../about.html" class="nav-link">关于</a></li>
+                <li><a href="../contact.html" class="nav-link">联系</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 文章头部 -->
+    <section class="article-header">
+        <div class="container">
+            <a href="../blog.html" class="back-to-blog">
+                <i class="fas fa-arrow-left"></i> 返回博客
+            </a>
+            <h1 class="article-title">我的第一篇技术博客</h1>
+            <div class="article-meta">
+                <span><i class="fas fa-calendar"></i> 2024年1月15日</span>
+                <span><i class="fas fa-folder"></i> 技术</span>
+                <span><i class="fas fa-clock"></i> 5分钟阅读</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- 文章内容 -->
+    <section class="article-content">
+        <div class="article-body">
+            <p>经过两周的准备，我终于写下了第一篇技术博客。作为一名前端开发者，我一直希望能有一个属于自己的空间，记录学习过程中的点滴收获，也希望能帮助到和我一样在成长路上的朋友们。</p>
+
+            <h2>写博客的初衷</h2>
+            <p>在学习和工作中，我经常会遇到各种技术难题。每当解决一个问题时，我都希望能把过程记录下来，既方便自己复盘，也能为他人提供参考。写博客不仅能加深对知识的理解，还能锻炼表达和总结能力。</p>
+
+            <h2>本博客的技术栈</h2>
+            <ul style="margin: 1rem 0; padding-left: 2rem; line-height: 1.8;">
+                <li>纯 <strong>HTML5 + CSS3 + JavaScript</strong> 静态页面</li>
+                <li>响应式设计，适配移动端和桌面端</li>
+                <li>简洁优雅的UI风格</li>
+                <li>托管于 GitHub Pages</li>
+            </ul>
+            <p>我选择了最基础的技术方案，目的是让博客更轻量、易维护，也方便后续自定义和扩展。</p>
+
+            <h2>近期学习心得</h2>
+            <p>最近在学习 <strong>前端工程化</strong> 相关内容，感受到自动化工具和模块化开发带来的便利。例如，使用 <code>npm</code> 管理依赖、用 <code>Webpack</code> 打包项目、通过 <code>ESLint</code> 保证代码规范等。这些工具极大提升了开发效率。</p>
+            <pre><code>// 安装依赖
+npm install
+
+// 启动开发环境
+npm run dev
+</code></pre>
+            <p>未来我会陆续分享这些工具的使用经验和常见问题的解决方法。</p>
+
+            <h2>后续计划</h2>
+            <ul style="margin: 1rem 0; padding-left: 2rem; line-height: 1.8;">
+                <li>持续更新前端开发相关的技术文章</li>
+                <li>记录项目开发过程中的心得与反思</li>
+                <li>分享学习新技术的笔记</li>
+                <li>偶尔聊聊生活与成长</li>
+            </ul>
+
+            <div style="background: #f0f9ff; padding: 2rem; border-radius: 10px; border-left: 4px solid #3b82f6; margin: 2rem 0;">
+                <p style="margin: 0; font-style: italic; color: #1e40af;">
+                    "学习的最大动力，是对未知的好奇和对成长的渴望。"
+                </p>
+            </div>
+
+            <p>感谢你的阅读！如果你有任何建议或想法，欢迎在评论区留言，或通过邮箱与我联系。让我们一起进步！</p>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>我的博客</h3>
+                    <p>专注于技术分享与生活记录</p>
+                </div>
+                <div class="footer-section">
+                    <h3>快速链接</h3>
+                    <ul>
+                        <li><a href="../index.html">首页</a></li>
+                        <li><a href="../blog.html">博客</a></li>
+                        <li><a href="../about.html">关于</a></li>
+                        <li><a href="../contact.html">联系</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>关注我</h3>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-github"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 我的博客. 保留所有权利.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../script.js"></script>
+</body>
+</html> 
