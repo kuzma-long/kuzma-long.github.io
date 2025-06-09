@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>联系 - 我的个人博客</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <h2>我的博客</h2>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">首页</a></li>
+                <li><a href="blog.html" class="nav-link">博客</a></li>
+                <li><a href="about.html" class="nav-link">关于</a></li>
+                <li><a href="contact.html" class="nav-link active">联系</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 页面头部 -->
+    <section class="page-header">
+        <div class="container">
+            <h1 class="page-title">联系我</h1>
+            <p class="page-description">有任何问题或建议，欢迎与我联系</p>
+        </div>
+    </section>
+
+    <!-- 联系内容 -->
+    <section class="article-content">
+        <div class="container">
+            <div style="max-width: 800px; margin: 0 auto;">
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-bottom: 3rem;">
+                    <div style="background: white; padding: 2rem; border-radius: 15px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); text-align: center;">
+                        <div style="width: 60px; height: 60px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 50%; margin: 0 auto 1rem; display: flex; align-items: center; justify-content: center;">
+                            <i class="fas fa-envelope" style="color: white; font-size: 1.5rem;"></i>
+                        </div>
+                        <h3>邮箱</h3>
+                        <p style="color: #6b7280;">your.email@example.com</p>
+                        <a href="mailto:your.email@example.com" style="color: #3b82f6; text-decoration: none; font-weight: 500;">发送邮件</a>
+                    </div>
+
+                    <div style="background: white; padding: 2rem; border-radius: 15px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); text-align: center;">
+                        <div style="width: 60px; height: 60px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 50%; margin: 0 auto 1rem; display: flex; align-items: center; justify-content: center;">
+                            <i class="fab fa-github" style="color: white; font-size: 1.5rem;"></i>
+                        </div>
+                        <h3>GitHub</h3>
+                        <p style="color: #6b7280;">查看我的项目</p>
+                        <a href="#" style="color: #3b82f6; text-decoration: none; font-weight: 500;">访问GitHub</a>
+                    </div>
+
+                    <div style="background: white; padding: 2rem; border-radius: 15px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); text-align: center;">
+                        <div style="width: 60px; height: 60px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 50%; margin: 0 auto 1rem; display: flex; align-items: center; justify-content: center;">
+                            <i class="fab fa-twitter" style="color: white; font-size: 1.5rem;"></i>
+                        </div>
+                        <h3>Twitter</h3>
+                        <p style="color: #6b7280;">关注我的动态</p>
+                        <a href="#" style="color: #3b82f6; text-decoration: none; font-weight: 500;">关注我</a>
+                    </div>
+                </div>
+
+                <!-- 联系表单 -->
+                <div style="background: white; padding: 3rem; border-radius: 20px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);">
+                    <h2 style="text-align: center; margin-bottom: 2rem; font-size: 2rem; color: #1f2937;">给我留言</h2>
+                    <form style="display: grid; gap: 1.5rem;">
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                            <div>
+                                <label style="display: block; margin-bottom: 0.5rem; font-weight: 500; color: #374151;">姓名</label>
+                                <input type="text" style="width: 100%; padding: 0.75rem; border: 2px solid #e5e7eb; border-radius: 8px; font-size: 1rem; transition: border-color 0.3s ease;" placeholder="请输入您的姓名">
+                            </div>
+                            <div>
+                                <label style="display: block; margin-bottom: 0.5rem; font-weight: 500; color: #374151;">邮箱</label>
+                                <input type="email" style="width: 100%; padding: 0.75rem; border: 2px solid #e5e7eb; border-radius: 8px; font-size: 1rem; transition: border-color 0.3s ease;" placeholder="请输入您的邮箱">
+                            </div>
+                        </div>
+                        <div>
+                            <label style="display: block; margin-bottom: 0.5rem; font-weight: 500; color: #374151;">主题</label>
+                            <input type="text" style="width: 100%; padding: 0.75rem; border: 2px solid #e5e7eb; border-radius: 8px; font-size: 1rem; transition: border-color 0.3s ease;" placeholder="请输入邮件主题">
+                        </div>
+                        <div>
+                            <label style="display: block; margin-bottom: 0.5rem; font-weight: 500; color: #374151;">消息</label>
+                            <textarea rows="6" style="width: 100%; padding: 0.75rem; border: 2px solid #e5e7eb; border-radius: 8px; font-size: 1rem; transition: border-color 0.3s ease; resize: vertical;" placeholder="请输入您想说的话..."></textarea>
+                        </div>
+                        <button type="submit" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 1rem 2rem; border: none; border-radius: 50px; font-size: 1rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease; transform: translateY(0);">
+                            发送消息 <i class="fas fa-paper-plane" style="margin-left: 0.5rem;"></i>
+                        </button>
+                    </form>
+                </div>
+
+                <div style="text-align: center; margin-top: 3rem; padding: 2rem; background: #f0f9ff; border-radius: 15px; border-left: 4px solid #3b82f6;">
+                    <h3 style="color: #1e40af; margin-bottom: 1rem;">快速响应承诺</h3>
+                    <p style="color: #1e40af; margin: 0;">我会在24小时内回复您的消息。如果是紧急问题，请直接发送邮件联系我。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>我的博客</h3>
+                    <p>专注于技术分享与生活记录</p>
+                </div>
+                <div class="footer-section">
+                    <h3>快速链接</h3>
+                    <ul>
+                        <li><a href="index.html">首页</a></li>
+                        <li><a href="blog.html">博客</a></li>
+                        <li><a href="about.html">关于</a></li>
+                        <li><a href="contact.html">联系</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>关注我</h3>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-github"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 我的博客. 保留所有权利.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
