@@ -29,3 +29,29 @@
   padding: 0 1rem 1rem;
   line-height: 1.6;
 }
+/* 移动端折叠菜单 */
+.site-header .site-nav ul {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+@media (max-width: 768px) {
+  .site-header .site-nav ul {
+    display: none; /* 初始隐藏 */
+    flex-direction: column;
+    background: #fff;
+    position: absolute;
+    top: 60px; right: 0;
+    width: 200px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+  .site-header .menu-toggle {
+    display: block;
+    cursor: pointer;
+  }
+}
+/* 打开时 */
+.site-header.nav-open .site-nav ul {
+  display: flex;
+}
