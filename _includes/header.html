@@ -10,3 +10,13 @@
     </nav>
   </div>
 </header>
+<button class="menu-toggle" aria-label="菜单切换">☰</button>
+<nav class="site-nav">
+  <!-- 同上 -->
+</nav>
+<script>
+  const header = document.querySelector('.site-header');
+  document.querySelector('.menu-toggle').addEventListener('click', () => {
+    header.classList.toggle('nav-open');
+  });
+</script>
