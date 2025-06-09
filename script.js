@@ -69,6 +69,35 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
+// 主题切换功能
+document.addEventListener('DOMContentLoaded', function() {
+    const themeToggle = document.createElement('button');
+    themeToggle.id = 'theme-toggle';
+    themeToggle.setAttribute('aria-label', '切换深色/浅色模式');
+    
+    // 检查用户偏好
+    if (localStorage.getItem('theme') === 'dark' || 
+       (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.body.classList.add('dark-mode');
+        themeToggle.classList.add('active');
+    }
+
+    // 创建按钮并添加到页面
+    document.body.appendChild(themeToggle);
+    
+    // 添加点击事件
+    themeToggle.addEventListener('click', function() {
+        document.body.classList.toggle('dark-mode');
+        if (document.body.classList.contains('dark-mode')) {
+            localStorage.setItem('theme', 'dark');
+            themeToggle.classList.add('active');
+        } else {
+            localStorage.removeItem('theme');
+            themeToggle.classList.remove('active');
+        }
+    });
+});
+
 // 添加活动导航链接高亮
 function setActiveNavLink() {
     const currentPath = window.location.pathname;
