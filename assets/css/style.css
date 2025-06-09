@@ -55,3 +55,22 @@
 .site-header.nav-open .site-nav ul {
   display: flex;
 }
+.site-footer {
+  background: #f5f5f5;
+  padding: 2rem 0 1rem;
+  margin-top: 3rem;
+  text-align: center;
+  font-size: .9rem;
+}
+.site-footer .footer-nav ul {
+  list-style: none;
+  padding: 0;
+  margin: .5rem 0 0;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+.site-footer a {
+  text-decoration: none;
+  color: inherit;
+}
