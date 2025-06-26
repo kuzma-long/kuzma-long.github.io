@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>义乌一日游超级详细交互攻略</title>
+    <style>
+        /* 定义CSS变量，便于主题色管理 */
+        :root {
+            --primary-color: #c0392b;
+            /* 主色调：深红 */
+            --secondary-color: #e74c3c;
+            /* 次色调：亮红 */
+            --accent-color: #f39c12;
+            /* 强调色：橙色 */
+            --bg-color: #f8f9fa;
+            /* 背景色 */
+            --text-color: #343a40;
+            /* 文字颜色 */
+            --card-bg: #ffffff;
+            /* 卡片背景色 */
+            --border-radius: 12px;
+            /* 圆角半径 */
+        }
+
+        /* 全局样式设置 */
+        body {
+            font-family: 'Helvetica Neue', 'Hiragino Sans GB', 'WenQuanYi Micro Hei', 'Microsoft Yahei', sans-serif;
+            line-height: 1.8;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 0;
+        }
+
+        /* 页面容器 */
+        .container {
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 0 15px;
+        }
+
+        /* 标题样式 */
+        h1,
+        h2 {
+            text-align: center;
+            color: var(--primary-color);
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+
+        /* 顶部标签页样式 */
+        .tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 25px;
+            border-bottom: 2px solid #ddd;
+        }
+
+        .tab-button {
+            padding: 12px 25px;
+            cursor: pointer;
+            border: none;
+            background-color: transparent;
+            font-size: 1.1em;
+            font-weight: bold;
+            color: #777;
+            position: relative;
+            transition: color 0.3s;
+            /* 避免按钮选中时出现蓝框 */
+            outline: none;
+        }
+
+        /* 标签页底部选中指示器 */
+        .tab-button:after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--secondary-color);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        /* 标签页选中状态 */
+        .tab-button.active {
+            color: var(--primary-color);
+        }
+
+        .tab-button.active:after {
+            transform: scaleX(1);
+        }
+
+        /* 标签页内容隐藏/显示 */
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* 时间线卡片样式 */
+        .timeline-card {
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius);
+            margin-bottom: 25px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            border-left: 5px solid var(--secondary-color);
+            /* 左侧强调色边框 */
+            padding: 20px;
+            position: relative;
+        }
+
+        .timeline-card h3 {
+            color: var(--primary-color);
+            margin-top: 0;
+            font-size: 1.5em;
+        }
+
+        /* 时间图标样式 */
+        .timeline-card .time-icon {
+            font-weight: bold;
+            color: var(--secondary-color);
+        }
+
+        /* 位置图标样式 */
+        .location-icon {
+            font-style: italic;
+            color: #2980b9;
+            /* 蓝色 */
+        }
+
+        /* 详情和交通详情区域 */
+        .details,
+        .transport-details {
+            margin-top: 15px;
+        }
+
+        /* 可折叠交通信息按钮 */
+        .collapsible-transport {
+            background-color: #eaf2f8;
+            /* 浅蓝色背景 */
+            border: 1px solid #d4e6f1;
+            /* 边框 */
+            border-radius: 8px;
+            padding: 10px 15px;
+            cursor: pointer;
+            margin-top: 15px;
+            font-weight: bold;
+            color: #2c3e50;
+            transition: background-color 0.3s;
+        }
+
+        .collapsible-transport:hover {
+            background-color: #d4e6f1;
+        }
+
+        /* 可折叠交通内容 */
+        .transport-content {
+            padding: 10px 15px 0 15px;
+            display: none;
+            /* 默认隐藏 */
+            overflow: hidden;
+            border-top: 1px solid #d4e6f1;
+        }
+
+        /* 美食网格布局 */
+        .food-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        /* 美食卡片项 */
+        .food-item {
+            background-color: #fff9eb;
+            /* 浅黄色背景 */
+            border: 1px solid #fdebd0;
+            /* 边框 */
+            padding: 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .food-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .food-item h4 {
+            margin: 0 0 5px 0;
+            color: var(--accent-color);
+        }
+
+        /* 模态框（弹窗）样式 */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.6);
+            animation: fadeIn 0.3s;
+            /* 渐入动画 */
+        }
+
+        .modal-content {
+            background-color: var(--card-bg);
+            margin: 10% auto;
+            padding: 25px;
+            border-radius: var(--border-radius);
+            width: 80%;
+            max-width: 600px;
+            position: relative;
+            animation: slideIn 0.3s;
+            /* 滑入动画 */
+        }
+
+        /* 关闭按钮 */
+        .close-button {
+            color: #aaa;
+            position: absolute;
+            top: 15px;
+            right: 25px;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* 动画定义 */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(-50px);
+            }
+
+            to {
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>义乌一日游超级详细交互攻略</h1>
+        <p style="text-align:center; color: #555;">为您量身定制的购物、美食与文化探索之旅 (2人行)</p>
+
+        <div class="tabs">
+            <button class="tab-button active" onclick="openTab(event, 'main-itinerary')">主线行程 (推荐)</button>
+            <button class="tab-button" onclick="openTab(event, 'plan-b')">Plan B & 备选方案</button>
+        </div>
+
+        <div id="main-itinerary" class="tab-content active">
+
+            <div class="timeline-card">
+                <h3><span class="time-icon">10:30 - 10:55</span> 抵达并前往商贸城</h3>
+                <p class="location-icon">从 义乌站 到 国际商贸城</p>
+                <div class="collapsible-transport" onclick="toggleTransport(this)">
+                    ➔ 点击查看交通详情
+                </div>
+                <div class="transport-content">
+                    <p><strong>方式:</strong> 金义东市域轨道交通“义东线” (最推荐)</p>
+                    <p><strong>路线:</strong> 在【义乌站】上车，乘坐往【明清宫站】方向的列车，经过约5站，在【国际商贸城站】下车。</p>
+                    <p><strong>时间:</strong> 约20-25分钟。</p>
+                    <p><strong>费用:</strong> 约5元。</p>
+                    <p><strong>提示:</strong> 出站即是商贸城一区和二区的连接处，非常方便。出租车约需25分钟，30元左右，但可能遇上堵车。</p>
+                </div>
+            </div>
+
+            <div class="timeline-card">
+                <h3><span class="time-icon">11:00 - 12:30</span> 初探“世界小商品海洋” (年轻人打卡热点)</h3>
+                <p class="location-icon">国际商贸城一区 (饰品、玩具、工艺品)</p>
+                <div class="details">
+                    <p>商贸城巨大，对于年轻人，建议直奔最“有趣”的区域！</p>
+                    <ul>
+                        <li><strong>主攻一区 (饰品、玩具、工艺品):</strong> 这里是“BlingBling”和“奇思妙想”的海洋！
+                            <ul>
+                                <li><strong>饰品区 (一区东扩部分/一楼):</strong>
+                                    各类潮流耳环、项链、手链、发饰，款式新颖，价格优势明显，绝对让你挑花眼。很多网红店的同款都能在这里找到。</li>
+                                <li><strong>玩具区 (一区):</strong> 新奇特玩具、动漫周边、创意文具等，无论是给自己找乐子还是买伴手礼，都充满了童趣和新鲜感。</li>
+                                <li><strong>工艺品区 (一区):</strong> 精美的摆件、小挂饰、节日用品，有很多小众又精致的设计，是寻找个性化礼物的宝藏地。</li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <p><strong>逛街贴士：</strong> 重点是感受世界小商品的丰富多样性，看到喜欢的新奇小物件可以适当入手。时间有限，保持快节奏，遇到特别感兴趣的店铺再细看。</p>
+                </div>
+            </div>
+
+            <div class="timeline-card">
+                <h3><span class="time-icon">12:30 - 14:00</span> 午餐：舌尖上的“义乌小联合国”</h3>
+                <p class="location-icon">国际商贸城五区对面 (异国风情街)</p>
+                <div class="collapsible-transport" onclick="toggleTransport(this)">
+                    ➔ 点击查看交通详情 (从一区到五区)
+                </div>
+                <div class="transport-content">
+                    <p><strong>方式一 (步行):</strong> 沿商贸城内部通道或外围步行，距离约1.5-2公里，需20-25分钟。</p>
+                    <p><strong>方式二 (免费穿梭巴士):</strong> 在一区门口有免费的环线穿梭电瓶车，可以搭乘前往五区，约10-15分钟。</p>
+                    <p><strong>方式三 (共享单车/电动车):</strong> 商贸城周边有大量共享单车和电动车停放点，短距离代步方便。</p>
+                </div>
+                <p><strong>美食选择：</strong> 义乌是多国客商的聚集地，异国风情街的美食非常正宗！</p>
+                <div class="food-grid">
+                    <div class="food-item" onclick="openModal('sultan')">
+                        <h4>苏坦土耳其餐厅</h4>
+                        <p>人气最高的选择，烤肉拼盘必点。</p>
+                    </div>
+                    <div class="food-item" onclick="openModal('beyti')">
+                        <h4>贝迪餐厅</h4>
+                        <p>环境优雅，服务好，口味正宗。</p>
+                    </div>
+                    <div class="food-item" onclick="openModal('shama')">
+                        <h4>沙马叙利亚餐厅</h4>
+                        <p>性价比高，鹰嘴豆泥和烤饼是一绝。</p>
+                    </div>
+                    <div class="food-item" onclick="openModal('mozi')">
+                        <h4>墨茉私房菜</h4>
+                        <p>想吃中餐？这家地道义乌菜不会错。</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="timeline-card">
+                <h3><span class="time-icon">14:00 - 16:00</span> 深度挖掘：进口好物与潮流时尚</h3>
+                <p class="location-icon">国际商贸城五区 (进口商品馆) / 三区 (时尚百货)</p>
+                <div class="details">
+                    <p>午饭后体力恢复，下午继续探索商贸城的精华！</p>
+                    <ul>
+                        <li><strong>五区 (进口商品馆):</strong> 这里是全球好物的聚集地！
+                            <ul>
+                                <li><strong>进口美妆、零食、保健品:</strong> 各种新奇有趣的进口零食、日韩美妆、欧洲保健品等，琳琅满目，非常适合年轻人边逛边发现新奇。</li>
+                                <li><strong>小电器、日用杂货:</strong> 也有很多高颜值、设计独特的进口小电器和日用杂货，是提升生活品质的好选择。</li>
+                            </ul>
+                        </li>
+                        <li><strong>三区 (时尚百货/文体用品):</strong>
+                            <ul>
+                                <li><strong>箱包、雨具、鞋类 (部分):</strong> 如果对潮流箱包或特色雨具感兴趣，可以在这里找到一些款式。</li>
+                                <li><strong>体育用品、文化办公用品:</strong> 喜欢运动的可以逛逛体育用品区，文具爱好者也能发现不少设计感强的本子、笔等。</li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <p><strong>购物技巧：</strong>
+                        国际商贸城以批发为主，但很多店铺也支持零售。大胆询问，很多店主态度友善。如果想买少量，可以尝试凑单或直接沟通，通常能以不错的价格拿到心仪的商品。支付宝/微信支付普及，非常方便。</p>
+                </div>
+            </div>
+
+            <div class="timeline-card">
+                <h3><span class="time-icon">16:00 - 16:30</span> 转场：从商业到文艺</h3>
+                <p class="location-icon">从 商贸城 到 老车站1970文创园</p>
+                <div class="collapsible-transport" onclick="toggleTransport(this)">
+                    ➔ 点击查看交通详情
+                </div>
+                <div class="transport-content">
+                    <p><strong>方式:</strong> 出租车或网约车 (最方便)。</p>
+                    <p><strong>距离与时间:</strong> 约5公里，不堵车情况下15-20分钟。</p>
+                    <p><strong>费用:</strong> 约15-20元。</p>
+                    <p><strong>提示:</strong> 这个时间段可能会有点堵，建议稍微提早出发。</p>
+                </div>
+            </div>
+
+            <div class="timeline-card">
+                <h3><span class="time-icon">16:30 - 17:30</span> 文艺打卡：复古工业风拍照地</h3>
+                <p class="location-icon">老车站1970文创园</p>
+                <div class="details">
+                    <p>逛了一天市场，来这里切换一下节奏。由废弃的铁路货运站改造而成，保留了旧铁轨、仓库和火车头，充满了复古工业感，是年轻人拍照打卡的绝佳地点！</p>
+                    <ul>
+                        <li><strong>拍照点:</strong> 巨型涂鸦墙、老式绿皮火车、铁轨延伸的尽头、旧厂房改造的艺术空间，每个角落都充满故事感。</li>
+                        <li><strong>逛什么:</strong> 里面有许多创意小店、手作工坊和有情调的咖啡馆，可以坐下来喝杯东西，稍作休息，感受艺术与历史的融合。</li>
+                    </ul>
+                    <p><strong>建议:</strong> 文创园不大，50分钟足以走马观花地逛完并拍些照片。如果时间充裕，可以选一家咖啡馆小憩。</p>
+                </div>
+            </div>
+
+            <div class="timeline-card">
+                <h3><span class="time-icon">17:30 - 18:00</span> 晚餐：三挺路夜市 (地道义乌烟火气)</h3>
+                <p class="location-icon">三挺路夜市</p>
+                <div class="collapsible-transport" onclick="toggleTransport(this)">
+                    ➔ 点击查看交通详情
+                </div>
+                <div class="transport-content">
+                    <p><strong>方式:</strong> 从文创园打车前往。</p>
+                    <p><strong>距离与时间:</strong> 约4公里，10-15分钟左右。</p>
+                    <p><strong>费用:</strong> 约12-15元。</p>
+                </div>
+                <p><strong>夜市美食搜罗：</strong></p>
+                <div class="food-grid">
+                    <div class="food-item" onclick="openModal('niuzha')">
+                        <h4>上溪牛杂</h4>
+                        <p>义乌特色，汤头浓郁，牛杂软烂。</p>
+                    </div>
+                    <div class="food-item" onclick="openModal('mahua')">
+                        <h4>义乌红糖麻花</h4>
+                        <p>香甜酥脆，是经典的本地小吃。</p>
+                    </div>
+                    <div class="food-item" onclick="openModal('kaoshenghao')">
+                        <h4>烤生蚝</h4>
+                        <p>夜市标配，蒜蓉烤生蚝烟火气十足。</p>
+                    </div>
+                    <div class="food-item" onclick="openModal('roubing')">
+                        <h4>东河肉饼</h4>
+                        <p>如果午饭没吃，可以在这补上。</p>
+                    </div>
+                </div>
+                <p><strong>建议:</strong> 夜市人流较大，找好吃的需要眼疾手快。1.5小时可以品尝多款小吃，感受义乌的市井风情。</p>
+            </div>
+
+            <div class="timeline-card">
+                <h3><span class="time-icon">18:00 - 20:00</span> 鸡鸣阁：登高赏日落 + 蓝调夜景</h3>
+                <p class="location-icon">鸡鸣阁</p>
+                <div class="collapsible-transport" onclick="toggleTransport(this)">
+                    ➔ 点击查看交通详情
+                </div>
+                <div class="transport-content">
+                    <p><strong>方式:</strong> 打车约2公里，车程5-10分钟。</p>
+                    <p><strong>建议:</strong> 可以从夜市步行前往（约20分钟）作为热身徒步。</p>
+                </div>
+                <div class="details">
+                    <ul>
+                        <li><strong>18:00-18:30:</strong> 登鸡鸣阁，步行约需25-30分钟。推荐沿义乌江绿道攀登，风景优美。</li>
+                        <li><strong>18:30-19:00:</strong> 等待灯光亮起，观赏落日金光洒满阁楼屋檐。</li>
+                        <li><strong>19:00-20:00:</strong> 拍摄蓝调时刻，夜色与灯光交织，最佳打卡时间。</li>
+                    </ul>
+                    <p><strong>推荐观景点：</strong> 鸡鸣阁二层南侧观景平台、廊桥、亭台。</p>
+                    <p><strong>提示：</strong> 夜间开放时间为18:00–21:30，无需门票，建议自带小手电。</p>
+                </div>
+            </div>
+
+            <div class="timeline-card" style="border-left-color: #e74c3c;">
+                <h3><span class="time-icon">20:05 - 20:30</span> 踏上归途</h3>
+                <p class="location-icon">从 鸡鸣阁 到 义乌站</p>
+                <div class="collapsible-transport" onclick="toggleTransport(this)">
+                    ➔ 点击查看交通详情
+                </div>
+                <div class="transport-content">
+                    <p><strong>方式:</strong> 出租车或网约车。</p>
+                    <p><strong>距离与时间:</strong> 约10公里，务必留出 <strong>25-30分钟</strong> 的行车时间，考虑晚高峰或打车等待时间。</p>
+                    <p><strong>费用:</strong> 约25-30元。</p>
+                    <p><strong>⚠️重要提示:</strong> 务必在20:05前开始叫车！确保能在20:30前抵达义乌站，预留充足时间检票候车。</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="plan-b" class="tab-content">
+            <div class="timeline-card">
+                <h3>现代都市休闲：义乌天地</h3>
+                <div class="details">
+                    <p><strong>简介:</strong>
+                        义乌天地是义乌市新晋的时尚文化商业综合体，集购物、餐饮、休闲、娱乐、文创于一体。相较于商贸城的批发属性，这里更偏向潮流零售和年轻人的生活方式，是时尚青年们聚会、打卡、放松的好去处。</p>
+                    <p><strong>适合人群:</strong> 喜欢逛品牌店、喝下午茶、体验时尚餐饮、看电影或享受现代都市氛围的年轻人。</p>
+                    <p><strong>适合替换:</strong> 如果你们对【老车站1970文创园】的工业风不感兴趣，或者想体验更现代的休闲方式，可以在下午【17:00 - 19:30】替换该环节，并在此解决晚餐。
+                    </p>
+                    <p><strong>交通:</strong> 从国际商贸城打车前往约10-15分钟，费用约15元；从老车站1970文创园打车前往约10分钟，费用约12元。</p>
+                    <p><strong>亮点:</strong>
+                    <ul>
+                        <li><strong>潮流品牌:</strong> 汇聚了国内外知名零售品牌和设计师买手店。</li>
+                        <li><strong>特色餐饮:</strong> 除了连锁餐饮，也有许多有设计感的咖啡馆、甜品店、融合菜餐厅。</li>
+                        <li><strong>文化活动:</strong> 不定期举办各类艺术展、市集、音乐演出等活动。</li>
+                        <li><strong>夜景:</strong> 晚间灯光璀璨，拍照效果极佳。</li>
+                    </ul>
+                    </p>
+                    <p><strong>建议:</strong> 如果选择去义乌天地，可以将原计划的晚餐和夜景环节合并在此完成。这里的美食选择更丰富，氛围也更适合长时间逗留。</p>
+                </div>
+            </div>
+            <div class="timeline-card">
+                <h3>备选景点/活动 (文化与休闲)</h3>
+                <div class="details">
+                    <h4>义乌市博物馆</h4>
+                    <p><strong>简介:</strong>
+                        如果您对历史文化感兴趣，这里是了解义乌从“鸡毛换糖”到“世界超市”发展历程的好去处。馆藏丰富，布展现代，详细介绍了义乌的商贸文化和历史变迁，非常具有教育意义。</p>
+                    <p><strong>适合替换:</strong> 下午的【老车站1970文创园】环节，或者如果您对购物兴趣不大，可以替代部分商贸城时间。</p>
+                    <p><strong>交通:</strong> 位于市政府旁边，从商贸城打车约20分钟，乘坐义东线轨道交通至【市民广场站】也可抵达。</p>
+                    <p><strong>亮点:</strong> 特别推荐“鸡毛换糖”专题展区，生动再现了义乌人艰苦创业的历史。</p>
+
+                    <h4>稠州公园</h4>
+                    <p><strong>简介::</strong>
+                        义乌市中心的市民公园，绿化很好，有一个人工湖可以划船。这里环境清幽，是走累了想找个地方放空休息、感受本地生活的理想选择。园内有小径、凉亭，适合散步和拍照。</p>
+                    <p><strong>适合替换:</strong> 下午的【老车站1970文创园】环节。</p>
+                    <p><strong>交通:</strong> 位于市中心，交通便利，从商贸城打车约20分钟。</p>
+                    <p><strong>亮点:</strong> 如果天气好，可以在湖上划船放松，或者找个长椅静静地看书。</p>
+                </div>
+            </div>
+            <div class="timeline-card">
+                <h3>备选晚餐地点 (风味更多元)</h3>
+                <div class="details">
+                    <h4>韩国风情街 (工人北路)</h4>
+                    <p><strong>简介:</strong> 义乌是全国最大的韩国商品集散地之一，这里的韩国料理非常正宗，许多韩国商家在此经营。整条街都是烤肉、炸鸡、部队火锅、韩式咖啡店，氛围感十足。</p>
+                    <p><strong>推荐餐厅:</strong> 青纱草笼 (烤肉、石锅拌饭)、韩林烧烤 (韩式炸鸡、年糕火锅)。</p>
+                    <p><strong>适合替换:</strong> 【三挺路夜市】晚餐，如果你们是韩料爱好者。</p>
+                    <p><strong>交通:</strong> 从文创园或商贸城打车约15-20分钟。</p>
+                    <p><strong>亮点:</strong> 除了美食，还有许多韩国超市、服饰店，可以一站式体验韩国文化。</p>
+
+                    <h4>城中中路美食街 (更本地化)</h4>
+                    <p><strong>简介:</strong> 更加本地化的美食街，除了小吃摊，还有很多义乌本地菜馆、大排档，可以坐下来好好吃一顿地道的义乌家常菜。这里更具市井气息，能深入体验义乌本地生活。</p>
+                    <p><strong>推荐:</strong> 寻找挂着“上溪牛杂”、“佛堂白切羊肉”、“赤岸豆腐皮”招牌的店铺，这些都是义乌的特色菜肴。</p>
+                    <p><strong>适合替换:</strong> 【三挺路夜市】晚餐，如果你们想尝试更多正餐类的本地美食。</p>
+                    <p><strong>交通:</strong> 位于市中心，从文创园打车约15分钟。</p>
+                    <p><strong>亮点:</strong> 价格通常更亲民，选择多样，能品尝到原汁原味的义乌风味。</p>
+                </div>
+            </div>
+            <div class="timeline-card">
+                <h3>Plan B 综合提示</h3>
+                <div class="details">
+                    <p><strong>天气因素:</strong> 如果遇到下雨天或炎热天气，博物馆、义乌天地和室内餐厅是更好的选择，减少户外活动时间。</p>
+                    <p><strong>交通选择:</strong> 义乌的网约车和出租车都很方便，但在高峰期(午餐、下班、晚餐)可能会有等待，建议提前叫车。轨道交通是连接火车站和商贸城的最佳方式。</p>
+                    <p><strong>灵活调整:</strong> 以上行程仅供参考，请根据你们的兴趣和体力灵活调整。义乌是个充满惊喜的城市，随意走走逛逛也可能会有意外收获！</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div id="foodModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" onclick="closeModal()">&times;</span>
+            <h2 id="modal-title"></h2>
+            <p id="modal-desc"></p>
+            <p id="modal-recommend"></p>
+        </div>
+    </div>
+
+    <script>
+        // 定义美食数据，用于模态框显示
+        const foodData = {
+            sultan: {
+                title: "苏坦土耳其餐厅 (Sultan)",
+                img: "", // 图片链接已移除
+                desc: "义乌最富盛名的土耳其餐厅，中东客商的聚集地，口味非常正宗。环境充满异域风情，仿佛置身伊斯坦布尔。",
+                recommend: "<strong>推荐菜:</strong> 烤肉拼盘、土耳其披萨(Pide)、米布丁、鹰嘴豆泥配烤饼。"
+            },
+            beyti: {
+                title: "贝迪餐厅 (BEYTI)",
+                img: "", // 图片链接已移除
+                desc: "另一家高分土耳其餐厅，环境比苏坦更偏向现代优雅。菜品精致，服务周到，适合追求品质的食客。",
+                recommend: "<strong>推荐菜:</strong> 阿达纳烤肉、土耳其红茶、各式沙拉。"
+            },
+            shama: {
+                title: "沙马叙利亚餐厅 (Shama)",
+                img: "", // 图片链接已移除
+                desc: "一家性价比极高的中东餐厅，深受留学生和本地居民喜爱。菜量大，价格实惠，充满了家庭式餐厅的温馨感。",
+                recommend: "<strong>推荐菜:</strong> 叙利亚烤鸡、鹰嘴豆泥、法图什沙拉。"
+            },
+            mozi: {
+                title: "墨茉私房菜",
+                img: "", // 图片链接已移除
+                desc: "如果想在商贸城附近吃地道的义乌菜，这家是很好的选择。口味家常，价格亲民，深受本地人欢迎。",
+                recommend: "<strong>推荐菜:</strong> 虾滑口蘑、辣子鸡、油淋茄子。"
+            },
+            niuzha: {
+                title: "上溪牛杂",
+                img: "", // 图片链接已移除
+                desc: "义乌的代表性小吃之一，将牛的各个部位处理干净后放入大锅中，用秘制香料长时间熬煮，汤头鲜美，牛杂软烂入味。",
+                recommend: "<strong>推荐:</strong> 可以选择牛杂汤，也可以加粉丝、豆腐泡等，冬天吃一碗浑身暖和。"
+            },
+            mahua: {
+                title: "义乌红糖麻花",
+                img: "", // 图片链接已移除
+                desc: "与天津大麻花不同，义乌红糖麻花小巧酥脆，外层裹着一层金黄的红糖浆，甜而不腻，是许多义乌人童年的回忆。",
+                recommend: "<strong>推荐:</strong> 趁热吃口感最佳，香气扑鼻。"
+            },
+            kaoshenghao: {
+                title: "蒜蓉烤生蚝",
+                img: "", // 图片链接已移除
+                desc: "夜市的灵魂菜品之一。新鲜的生蚝，配上足量的蒜蓉、小米辣和葱花，在炭火上烤得滋滋作响，鲜美无比。",
+                recommend: "<strong>推荐:</strong> 一般按打或半打售卖，可以和别的海鲜一起点。"
+            },
+            roubing: {
+                title: "东河肉饼",
+                img: "", // 图片链接已移除
+                desc: "义乌非物质文化遗产，手工擀制的薄皮里包上新鲜的肉馅和葱花，在平底锅上煎至两面金黄，皮薄如纸，香脆可口。",
+                recommend: "<strong>推荐:</strong> 一定要趁热吃，可以加个鸡蛋或里脊肉。"
+            }
+        };
+
+        // 切换标签页函数
+        function openTab(evt, tabName) {
+            let i, tabcontent, tablinks;
+            // 隐藏所有标签页内容
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            // 移除所有标签按钮的激活状态
+            tablinks = document.getElementsByClassName("tab-button");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+            // 显示当前选中的标签页内容，并添加激活状态
+            document.getElementById(tabName).style.display = "block";
+            evt.currentTarget.className += " active";
+        }
+
+        // 切换交通详情折叠内容函数
+        function toggleTransport(element) {
+            // 切换按钮的激活类
+            element.classList.toggle("active");
+            // 获取下一个兄弟元素（交通内容）
+            var content = element.nextElementSibling;
+            // 切换显示/隐藏状态
+            if (content.style.display === "block") {
+                content.style.display = "none";
+            } else {
+                content.style.display = "block";
+            }
+        }
+
+        // 获取模态框元素
+        const modal = document.getElementById("foodModal");
+
+        // 打开美食模态框函数
+        function openModal(foodKey) {
+            const data = foodData[foodKey]; // 从foodData中获取对应美食数据
+            if (data) {
+                // 更新模态框内容
+                // document.getElementById("modal-img").src = data.img; // 图片已移除，不再设置src
+                document.getElementById("modal-title").innerText = data.title;
+                document.getElementById("modal-desc").innerHTML = data.desc;
+                document.getElementById("modal-recommend").innerHTML = data.recommend;
+                modal.style.display = "block"; // 显示模态框
+            }
+        }
+
+        // 关闭模态框函数
+        function closeModal() {
+            modal.style.display = "none";
+        }
+
+        // 点击模态框外部区域关闭模态框
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                closeModal();
+            }
+        }
+
+        // 初始化时显示主线行程标签页
+        document.addEventListener('DOMContentLoaded', () => {
+            openTab(null, 'main-itinerary'); // 页面加载完成时默认选中主线行程
+        });
+    </script>
+
+</body>
+
+</html>
